@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.raisei.dao.UserMapper">
+
+
+    <insert id="addUser">
+        insert into user
+        values (#{userId}, #{name}, #{phone}, #{sex}, #{age})
+    </insert>
+    <update id="updateUser">
+        update user
+        set password=#{password},
+            name=#{name},
+            phone=#{phone},
+            sex=#{sex},
+            age=#{age}
+        where user_id = #{userId}
+    </update>
+    <update id="registerUser">
+        insert into user (account,password,name,phone,sex,age)
+        values (account=#{account},password=#{password},name=#{name},phone=#{phone},sex=#{sex},age=#{age})
+    </update>
+    <delete id="deleteUser">
+        delete
+        from user
+        where user_id = #{userId}
+    </delete>
+    <select id="selectPassword" resultType="java.lang.String">
+        select password
+        from user
+        where account = #{account}
+    </select>
+    <select id="queryAllUser" resultType="com.raisei.pojo.User">
+        select *
+        from user
+    </select>
+    <select id="selectUserByAccount" resultType="com.raisei.pojo.User">
+        select *
+        from user
+        where account = #{account}
+    </select>
+    <select id="selectIdByAccount" resultType="java.lang.Integer">
+        select user_id
+        from user
+        where account=#{account}
+    </select>
+</mapper>

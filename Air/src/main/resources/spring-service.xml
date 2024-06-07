@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context" xmlns:tx="http://www.springframework.org/schema/tx"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/context
+        https://www.springframework.org/schema/context/spring-context.xsd http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd">
+
+    <!--1.扫描service下的包-->
+    <context:component-scan base-package="com.raisei.service"/>
+    <context:component-scan base-package="com.raisei.dao"/>
+
+    <!--2.将我们的所有业务类注入到Spring中，可以通过配置，或者注解-->
+<!--    <bean id="bookServiceImpl" class="com.raisei.service.Impl.BookServiceImpl">
+        <property name="bookMapper" ref="bookMapper"/>
+    </bean>-->
+
+    <!--3.声明式事务配置-->
+    <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <!--注入数据源,指向dao的连接池-->
+        <property name="dataSource" ref="dataSource"/>
+    </bean>
+
+    <!-- 使用annotation定义事务 -->
+    <tx:annotation-driven transaction-manager="transactionManager" />
+
+    <!--配置事务管理的模板-->
+    <bean id="transactionTemplate" class="org.springframework.transaction.support.TransactionTemplate">
+        <property name="transactionManager" ref="transactionManager">
+
+        </property>
+        <!--定义事务隔离级别,-1表示使用数据库默认级别-->
+        <property name="isolationLevelName" value="ISOLATION_DEFAULT"/>
+        <property name="propagationBehaviorName" value="PROPAGATION_REQUIRED"/>
+    </bean>
+
+    <!--4.aop事务支持-->
+
+</beans>

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.raisei.dao.ItineraryMapper">
+    <insert id="addItinerary">
+        insert into itinerary (origin, destination, cost, date, team)
+        values (origin=#{origin},destination=#{destination},cost=#{cost}, date=#{date}, team=#{team})
+    </insert>
+    <delete id="deleteById">
+        delete from itinerary where itinerary_id=#{id}
+    </delete>
+
+    <select id="selectItineraryById" resultType="com.raisei.pojo.Itinerary">
+        select *
+        from itinerary
+        where itinerary_id=#{itinerary_id}
+    </select>
+    <select id="queryAll" resultType="com.raisei.pojo.Itinerary">
+        select *
+        from itinerary
+    </select>
+    <select id="selectByUserId" resultType="com.raisei.pojo.Itinerary">
+        select it.*
+        from itinerary it , `order` o
+        where it.itinerary_id=o.itinerary_id
+        and o.user_id=#{userId}
+    </select>
+</mapper>

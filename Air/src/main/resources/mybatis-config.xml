@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+
+    <settings>
+        <!--设置驼峰匹配-->
+        <setting name="mapUnderscoreToCamelCase" value="true"/>
+        <!--设置log4j输出日志-->
+        <setting name="logImpl" value="LOG4J"/>
+        <!--懒加载-->
+        <setting name="lazyLoadingEnabled" value="true"/>
+    </settings>
+    <!--    别名-->
+    <typeAliases>
+        <package name="com.raisei.pojo"/>
+    </typeAliases>
+    <!--    配置xml映射器-->
+    <mappers>
+<!--        <mapper resource="com/raisei/dao/BookMapper.xml"/>-->
+        <package name="com.raisei.dao"/>
+    </mappers>
+</configuration>
